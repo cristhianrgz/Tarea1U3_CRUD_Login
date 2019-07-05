@@ -8,8 +8,6 @@ let app = express();
 
 require('./models/models')(wagner);
 
-const user = require('./routers/user.router')(wagner);
-
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
@@ -24,6 +22,12 @@ app.use(function(req, res, next) {
 
 const urlBase = "/api/v1/";
 
+const user = require('./routers/user.router')(wagner);
+const brand = require('./routers/brand.router')(wagner);
+const product = require('./routers/product.router')(wagner);
+
 app.use(urlBase+'usuarios',user);
+app.use(urlBase+'brands',brand);
+app.use(urlBase+'products',product);
 
 module.exports = app;
